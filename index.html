@@ -1,0 +1,131 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>AOSC Wallpaper Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        const selectRandomElementFromArray = function (arr) {
+            let rand = Math.floor(Math.random() * arr.length);
+            return arr[rand];
+        };
+        const imgJson = {
+    "images": [
+        {
+            "fn": "osnine-00155d4af67c.jpg",
+            "title": "Plum Blossom",
+            "authoru": "osnine",
+            "author": "osnine",
+            "text": "light"
+        }
+    ]
+};
+        const quotesJson = {
+    "quotes": [
+        {
+            "id": 0,
+            "author": "Icenowy",
+            "authoru": "icenowy",
+            "content": "把底裤卖给 systemd 的人，终将裸奔。"
+        }
+    ]
+};
+        const fillContent = function () {
+            window.randImg = selectRandomElementFromArray(imgJson.images);
+            window.randQuote = selectRandomElementFromArray(quotesJson.quotes);
+
+            // Quote
+            document.querySelector('.the-quote').innerHTML = window.randQuote.content;
+            document.querySelector('.quote-author-name').innerHTML = window.randQuote.author;
+            document.querySelector('.quote-author-name').href = `https://aosc.io/people/~${window.randQuote.authoru}/`;
+
+            // Image
+            document.querySelector('body').style.backgroundImage = `url('./img/${window.randImg.fn}')`;
+            document.querySelector('.image-author-name').href = `https://github.com/AOSC-Dev/WallColle/blob/master/contributors/${window.randImg.authoru}/me.json`
+            document.querySelector('.image-author-name').innerHTML = window.randImg.author;
+            document.querySelector('body').setAttribute('data-text-color', window.randImg.text);
+            document.querySelector('.image-title').innerHTML = window.randImg.title;
+        };
+        window.addEventListener('load', fillContent);
+    </script>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Segoe UI', 'Verdana', sans-serif, 'PingFang SC', 'Noto Sans SC', 'Source Han Sans CN', 'Microsoft YaHei';
+            height: 100vh;
+        }
+
+        body {
+            background-color: none;
+            background-attachment: scroll;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+        }
+
+        body[data-text-color="light"] {
+            color: #FFF;
+            text-shadow: rgba(0, 0, 0, 0.76555) 0 1px 12px;
+        }
+
+        body[data-text-color="dark"] {
+            color: #000;
+            text-shadow: rgba(255, 255, 255, 0.76555) 0 1px 12px;
+        }
+
+        /* Layout */
+        .content {
+            position: fixed;
+            left: 11vw;
+            padding: 0 15vw 0 0;
+            bottom: 9vh;
+        }
+
+        /* Quote */
+        .the-quote {
+            font-size: 24px;
+            max-width: 600px;
+            padding: 0 0 15px;
+            margin: 0;
+        }
+
+        /* Footer */
+        .image-author {
+            font-size: 12px;
+            padding: 50px 0 0 0;
+            opacity: 0.6;
+        }
+
+        /* Misc */
+        a {
+            color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cont">
+        <div class="content">
+            <div class="quote-area">
+                <div class="quote-inner">
+                    <blockquote class="the-quote">
+                    </blockquote>
+                    <div class="quote-metadata">
+                        <div class="quote-author">
+                            &dash; <a href="" class="quote-author-name"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-author">Image "<span class="image-title"></span>" &copy; <a href="" class="image-author-name"></a></div>
+        </div>
+    </div>
+</body>
+
+</html>
